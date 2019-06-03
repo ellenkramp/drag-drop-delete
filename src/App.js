@@ -1,14 +1,22 @@
 import React from 'react';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import List from './Views/List';
-import logo from './logo.svg';
+import Target from './Components/Target';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <List />
-    </div>
-  );
+class App extends React.Component {
+
+  render() {
+    return (
+      <div className="App">
+        <div className="list">
+          <List />
+        </div>
+        <Target />
+      </div>
+    );
+  }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);

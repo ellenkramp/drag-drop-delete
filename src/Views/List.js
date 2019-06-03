@@ -1,14 +1,32 @@
 import React from 'react';
-import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContext } from 'react-dnd';
+import Item from '../Components/Item';
 
 class List extends React.Component {
+  state = {
+    items: [
+      { id: 1, name: 'Item 1' },
+      { id: 2, name: 'Item 2' },
+      { id: 3, name: 'Item 3' },
+      { id: 4, name: 'Item 4' },
+    ],
+  }
+
+  deleteItem = (id) => {
+    this.setState(prevState => {
+      let items = prevState.items;
+      const index = items.findIndex(item => item.id === id);
+      items.splice(index, 1);
+      return { items };
+    });
+  }
+
   render() {
+    const { items } = this.state;
     return (
-      <div>
-        List
-      </div>
+      items.map(item =>
+      <Item key={item.id} item={item} handleDrop={(id) => this.deleteItem(id) } />
+      )
     );
   }
 }
-export default DragDropContext(HTML5Backend(List));
+export default List;
